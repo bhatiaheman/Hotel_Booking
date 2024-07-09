@@ -7,7 +7,7 @@ const Page = () => {
     const {id} = useLocalSearchParams<{id: string}>()
   return (
     <View>
-      <Text>Page</Text>
+      <Text></Text>
     </View>
   )
 }
