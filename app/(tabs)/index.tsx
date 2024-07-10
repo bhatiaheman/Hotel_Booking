@@ -8,7 +8,7 @@ const Page = () => {
 
   const [category, setCategory] = useState('Tiny homes');
   const onDataChanged = (category: string) => {
-
+    setCategory(category);
   }
 
   return (

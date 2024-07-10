@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface Props {
   listings: any[];
@@ -7,9 +7,14 @@ interface Props {
 }
 
 const Listings = ({listings, category}: Props) => {
+
+  useEffect(() => {
+
+  }, [category]);
+
   return (
     <View>
-      <Text></Text>
+      <Text>Listings</Text>
     </View>
   )
 }
