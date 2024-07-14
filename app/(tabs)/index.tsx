@@ -1,12 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link, Stack } from 'expo-router'
 import ExploreHeader from '@/components/ExploreHeader'
 import Listings from '@/components/Listings'
+import listingData from '@/assets/data/airbnb-listings.json';
+
 
 const Page = () => {
 
+  
+
   const [category, setCategory] = useState('Tiny homes');
+
+  const items = useMemo(() => listingData as any, [])
   const onDataChanged = (category: string) => {
     setCategory(category);
   }
@@ -17,7 +23,7 @@ const Page = () => {
         header: () =>  <ExploreHeader onCategoryChanged={onDataChanged} />
       }} />
 
-      <Listings listings={[]} category={category}/>
+      <Listings listings={items} category={category}/>
     </View>
   )
 }
