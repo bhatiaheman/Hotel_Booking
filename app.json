@@ -19,6 +19,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+        
       }
     },
     "web": {
@@ -29,6 +30,7 @@
     "plugins": [
       "expo-router",
       "expo-secure-store"
+  
     ],
     "experiments": {
       "typedRoutes": true
