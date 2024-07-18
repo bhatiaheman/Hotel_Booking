@@ -1,33 +1,77 @@
-import { PermissionsAndroid, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { defaultStyles } from '@/constants/Styles'
-import * as Permission from 'expo-permissions';
+import * as Location from 'expo-location';
+import { Listing } from '@/interfaces/listing';
+
+
 interface Props {
     listings:any
 }
 
+interface Coordinates {
+  latitude: number, 
+  longitude: number, 
+  latitudeDelta: number, 
+  longitudeDelta: number
+}
+
+
 const ListingsMap = ({listings}: Props) => {
 
-    const mapReady = () => {
-        PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        ).then(granted => {
-            alert(granted)
-        })
-    }
+    const [currentlocation, setCurrentLocation] = useState<Location.LocationObjectCoords | null>(null);
+    const [initialRegion, setInitialRegion] = useState<Coordinates | null>(null);
 
-    
+
+    useEffect(() => {
+      
+      const getLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          console.log("Permission to access location was denied");
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        setCurrentLocation(location.coords);
+  
+        setInitialRegion({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        });
+      }
+
+      getLocation();
+      
+      
+    },[]);
+
   return (
     <View style={defaultStyles.container}>
-      <MapView 
-      style={styles.map} 
-      showsUserLocation={true}
-      showsMyLocationButton={true}
-      provider={PROVIDER_GOOGLE}
-       
+      { initialRegion &&
+
+        <MapView style={StyleSheet.absoluteFill} 
+        initialRegion={initialRegion} 
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        >
+
+          {listings.features.map((item:Listing ) => (
+            <Marker coordinate={{
+              latitude: item.
+            }}
+          ))}
+
+        </MapView>
+
+      }
         
-      />
+          
+     
     </View>
   )
 }
@@ -39,8 +83,5 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    map: {
-        height: '100%',
-        width: '100%'
-    }
+    
 })
