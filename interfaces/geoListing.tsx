@@ -1,4 +1,4 @@
-export interface Root {
+export interface ListingGeo {
     type: string
     geometry: Geometry
     properties: Properties

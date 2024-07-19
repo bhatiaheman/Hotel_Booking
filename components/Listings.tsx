@@ -49,7 +49,7 @@ const Listings = ({listings: items, category}: Props) => {
            <Text>{item.room_type}</Text>
 
            <View style={{flexDirection: 'row', gap: 4}}>
-              <Text style={{fontFamily: 'mon_sb'}}>Rs. {item.price}</Text>
+              <Text style={{fontFamily: 'mon_sb'}}>€ {item.price}</Text>
               <Text style={{fontFamily: 'mon_sb'}}>night</Text>
             </View> 
 
